@@ -1,7 +1,8 @@
 ﻿using System.Net;
-using AutoMapper;
+using MediatR;
 using OMS.Application.Features.Base;
 using OMS.Application.Features.Orders.Commands;
+using OMS.Application.Features.Orders.Events;
 using OMS.Domain.Entities;
 using OMS.Domain.Shared.Models;
 using OMS.Infrastructure.Persistence.Data.Repositories;
@@ -13,16 +14,17 @@ public class CreateOrderCommandHandler : BaseCommandHandler<CreateOrderCommand, 
 {
     private readonly IBaseRepository<Order> _orderRepository;
     private readonly IBaseRepository<User> _userRepository;
-    private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
     public CreateOrderCommandHandler(
         IRepositoryFactory repositoryFactory,
-        IMapper mapper)
+        IMediator mediator)
     {
         _orderRepository = repositoryFactory.GetRepository<Order>();
         _userRepository = repositoryFactory.GetRepository<User>();
-        _mapper = mapper;
+        _mediator = mediator;
     }
+
 
     protected override async Task<OperationResultModel> HandleCommand(CreateOrderCommand command, CancellationToken cancellationToken)
     {
@@ -49,6 +51,13 @@ public class CreateOrderCommandHandler : BaseCommandHandler<CreateOrderCommand, 
 
             // Save changes
             await _orderRepository.SaveChangesAsync();
+
+            // Publish OrderCreatedEvent
+            await _mediator.Publish(new OrderCreatedEvent(
+                userId: user.Id,
+                userFullName: user.FullName,
+                description: string.IsNullOrWhiteSpace(order.Description) ? string.Empty : order.Description,
+                createdAt: order.CreatedAt), cancellationToken);
 
             return OperationResultModel.Success().WithStatusCode(HttpStatusCode.Created);
         }

@@ -1,3 +1,4 @@
+using OMS.Application.Features.Orders.Events;
 using OMS.Application.Features.Users.Handlers;
 using OMS.Application.Mappings;
 using OMS.Infrastructure.Persistence;
