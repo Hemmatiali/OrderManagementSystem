@@ -24,7 +24,10 @@ public sealed class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEn
     #region Methods
 
     /// <inheritdoc/>
-    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default) 
+    public async Task AddAsync(TEntity entity) => await _context.Set<TEntity>().AddAsync(entity);
+
+    /// <inheritdoc/>
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
         => await _context.Set<TEntity>().ToListAsync(cancellationToken: cancellationToken);
 
     /// <inheritdoc />
@@ -77,6 +80,13 @@ public sealed class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEn
         // If no selectColumns, cast the query to TResult (which must be TEntity in this case)
         return await query.Cast<TResult>().ToListAsync(cancellationToken);
     }
+
+    /// <inheritdoc/>
+    public async Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+        => await _context.Set<TEntity>().FindAsync(id, cancellationToken);
+
+    /// <inheritdoc/>
+    public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
 
     #endregion
 

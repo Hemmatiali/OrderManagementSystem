@@ -9,6 +9,13 @@ namespace OMS.Infrastructure.Persistence.Data.Repositories;
 public interface IBaseRepository<TEntity> where TEntity : class
 {
     /// <summary>
+    ///     Asynchronously adds an entity to the repository.
+    /// </summary>
+    /// <param name="entity">The entity to be added.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task AddAsync(TEntity entity);
+
+    /// <summary>
     ///     Asynchronously retrieves all entities from the repository.
     /// </summary>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
@@ -34,4 +41,18 @@ public interface IBaseRepository<TEntity> where TEntity : class
         int? skip = null,
         int? take = null,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Asynchronously retrieves an entity by its ID from the repository.
+    /// </summary>
+    /// <param name="id">The ID of the entity to retrieve.</param>
+    /// <param name="cancellationToken">The cancellation token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation, yielding a nullable <typeparamref name="TEntity"/>.</returns>
+    Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Asynchronously saves changes made to the repository.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task SaveChangesAsync();
 }
