@@ -1,4 +1,3 @@
-using OMS.Application.Features.Orders.Events;
 using OMS.Application.Features.Users.Handlers;
 using OMS.Application.Mappings;
 using OMS.Infrastructure.Persistence;
@@ -16,7 +15,6 @@ builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetAllUsersQueryHandler)));
 
 // Infrastructure layer
-
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 
@@ -30,9 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 //app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -8,6 +8,9 @@ public class LogOrderHandler : INotificationHandler<OrderCreatedEvent>
 {
     public async Task Handle(OrderCreatedEvent notification, CancellationToken cancellationToken)
     {
+        // Simulate like production env
+        await Task.Delay(2000, cancellationToken);
+
         // Get current directory of this file
         string directoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? Directory.GetCurrentDirectory();
         string logPath = Path.Combine(directoryPath, "LogOrderHandlerLogs", "order_logs.txt");
