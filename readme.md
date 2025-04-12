@@ -19,9 +19,9 @@ This project is a **simple implementation of the Pub/Sub design pattern using Me
 
 This solution follows the Clean Architecture principles and is divided into the following layers:
 
-- **Domain** – Contains core entities and event definitions.
-- **Application** – Handles business logic, MediatR handlers, validators.
-- **Infrastructure** – Implements repositories and database context using EF Core.
+- **Domain** – Contains core entities and shared items.
+- **Application** – Handles features related items, events business logic, MediatR handlers, validators.
+- **Infrastructure** – Implements generic repository, specific repositories and database context using EF Core.
 - **Presentation (API)** – Exposes endpoints and coordinates requests.
 
 ---
@@ -32,8 +32,7 @@ This solution follows the Clean Architecture principles and is divided into the 
 - ✅ **One event** and **three separate consumers** (handlers).
 - ✅ **CQRS pattern** for separation of command and query responsibilities.
 - ✅ **Client-side caching** (to be integrated optionally).
-- ✅ **Fluent validation** for input validation.
-- ✅ **Generic repository** pattern implementation.
+- ✅ **Generic repository** pattern implementation for DB operations.
 - ✅ **Proper error handling** for APIs.
 - ✅ **SOLID principles**, clean code practices, and **inheritance** used across layers.
 
@@ -49,25 +48,11 @@ This solution follows the Clean Architecture principles and is divided into the 
 ### Run the Project
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Hemmatiali/OrderManagementSystem
+cd OrderManagementSystem
 dotnet ef database update
 dotnet run --project Presentation
-
-
-' 📌 Example Use Case
-' This project showcases:
-' 
-' - Publishing an event (e.g., UserCreatedEvent)
-' - Handling the event with 3 different consumers (e.g., send email, log action, sync data)
-
-' 📦 Future Improvements
-' - Add unit and integration tests
-' - Add real caching (e.g., Redis)
-' - Extend the event system to support dynamic subscriptions
 
 ' 🤝 Contributing
 ' Feel free to fork the repo, open issues, and submit pull requests to help improve this simple yet powerful pattern demonstration.
 
-' 📄 License
-' This project is licensed under the MIT License.
