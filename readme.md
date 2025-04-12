@@ -20,8 +20,8 @@ This project is a **simple implementation of the Pub/Sub design pattern using Me
 This solution follows the Clean Architecture principles and is divided into the following layers:
 
 - **Domain** – Contains core entities and shared items.
-- **Application** – Handles features related items, events business logic, MediatR handlers, validators.
-- **Infrastructure** – Implements generic repository, specific repositories and database context using EF Core.
+- **Application** – Handles features related items, events, business logic, MediatR handlers, validators.
+- **Infrastructure** – Implements generic repository and database context using EF Core.
 - **Presentation (API)** – Exposes endpoints and coordinates requests.
 
 ---
