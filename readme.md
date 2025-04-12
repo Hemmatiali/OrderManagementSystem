@@ -28,7 +28,7 @@ This solution follows the Clean Architecture principles and is divided into the 
 
 ## ✨ Features
 
-- ✅ Simple **Event Publishing** using MediatR.
+- ✅ Simple **Event Publishing** using MediatR (In memory events).
 - ✅ **One event** and **three separate consumers** (handlers).
 - ✅ **CQRS pattern** for separation of command and query responsibilities.
 - ✅ **Client-side caching** (to be integrated optionally).
